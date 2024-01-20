@@ -107,4 +107,38 @@ document.addEventListener('mousemove', function (e) {
         document.body.removeChild(sparkContainer);
     }, 130);
 });
+document.addEventListener('touchstart', function (e) {
+    const sparkContainer = document.createElement('div');
+    sparkContainer.className = 'spark-container';
+    document.body.appendChild(sparkContainer);
+
+    const numSparks = 20;
+
+    for (let i = 0; i < numSparks; i++) {
+        const spark = document.createElement('div');
+        spark.className = 'spark';
+
+        const x = e.clientX;
+        const y = e.clientY;
+
+        const offsetX = (Math.random() - 0.5) * 20;
+        const offsetY = (Math.random() - 0.5) * 20;
+
+        spark.style.transform = `translate(${x}px, ${y}px)`;
+        spark.style.opacity = '0';
+
+        sparkContainer.appendChild(spark);
+
+        // Trigger reflow
+        spark.offsetHeight;
+
+        spark.style.transform = `translate(${x + offsetX}px, ${y + offsetY}px)`;
+        spark.style.opacity = '1';
+    }
+
+    // Remove sparks after animation
+    setTimeout(() => {
+        document.body.removeChild(sparkContainer);
+    }, 130);
+});
 
